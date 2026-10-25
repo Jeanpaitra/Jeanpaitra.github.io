@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Red Dead Live - Catálogo de Resgates do Chat</title>
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;800;900&family=Rye&family=Roboto+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-wood: #18120c;
+      --parchment: #f4ecd8;
+      --parchment-dark: #e2d1b3;
+      --border-gold: #c89d5c;
+      --rdr-red: #9e1b1b;
+      --text-ink: #2b1d0c;
+    }
+    body {
+      background-color: #120e0a;
+      background-image: 
+        radial-gradient(circle at 50% 20%, rgba(200, 157, 92, 0.08) 0%, transparent 60%),
+        repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.2) 0, rgba(0, 0, 0, 0.2) 2px, transparent 0, transparent 8px);
+      font-family: 'Cinzel', serif;
+      color: #eae0d0;
+      min-height: 100vh;
+    }
+    .font-western {
+      font-family: 'Rye', cursive;
+    }
+    .font-mono-code {
+      font-family: 'Roboto Mono', monospace;
+    }
+    .paper-texture {
+      background-color: var(--parchment);
+      background-image: radial-gradient(#d6c29e 1px, transparent 1px);
+      background-size: 16px 16px;
+      color: var(--text-ink);
+    }
+    /* Cores dos cards inspirados na imagem de referência */
+    .tier-yellow { background-color: #f59e0b; border-color: #d97706; color: #fff; }
+    .tier-pink   { background-color: #ec4899; border-color: #db2777; color: #fff; }
+    .tier-tan    { background-color: #ea580c; border-color: #c2410c; color: #fff; }
+    .tier-cyan   { background-color: #06b6d4; border-color: #0891b2; color: #fff; }
+    .tier-purple { background-color: #8b5cf6; border-color: #7c3aed; color: #fff; }
+    .tier-white  { background-color: #f1f5f9; border-color: #cbd5e1; color: #0f172a; }
+    .tier-black  { background-color: #0f172a; border-color: #334155; color: #f8fafc; }
+    .tier-red    { background-color: #dc2626; border-color: #991b1b; color: #fff; }
+    .tier-rose   { background-color: #e11d48; border-color: #be123c; color: #fff; }
+    .tier-lime   { background-color: #84cc16; border-color: #65a30d; color: #1a2e05; }
+    .tier-gold   { background-color: #171717; border-color: #eab308; color: #fef08a; }
+
+    .card-slot {
+      aspect-ratio: 1 / 1;
+      transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5), inset 0 2px 2px rgba(255, 255, 255, 0.25), inset 0 -3px 3px rgba(0, 0, 0, 0.4);
+    }
+    .card-slot:hover {
+      transform: translateY(-5px) scale(1.06);
+      z-index: 20;
+      box-shadow: 0 12px 20px -2px rgba(0, 0, 0, 0.8), 0 0 15px rgba(234, 179, 8, 0.5);
+    }
+    .card-slot:active {
+      transform: translateY(1px) scale(0.98);
+    }
+    .coin-badge {
+      background: rgba(0, 0, 0, 0.65);
+      backdrop-filter: blur(2px);
+      box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+    }
+    /* Estilo do modal vintage */
+    .wanted-border {
+      border: 4px double #8c6a38;
+      box-shadow: 0 0 35px rgba(0, 0, 0, 0.9), inset 0 0 25px rgba(140, 106, 56, 0.2);
+    }
+  </style>
+</head>
+<body class="p-3 sm:p-6 antialiased flex flex-col items-center">
+
+  <!-- Cabeçalho Estilo Red Dead Redemption -->
+  <header class="w-full max-w-5xl text-center mb-6 pt-4">
+    <div class="inline-block border-y-2 border-[#c89d5c] py-2 px-6 sm:px-12 mb-3">
+      <span class="text-xs sm:text-sm tracking-[0.35em] text-[#c89d5c] uppercase font-bold block">
+        CATÁLOGO OFICIAL DE RESGATES DA FRONTEIRA • 1899
+      </span>
+      <h1 class="text-3xl sm:text-5xl font-western text-[#e53935] tracking-wider drop-shadow-[0_2px_10px_rgba(229,57,53,0.4)] mt-1">
+        RED DEAD LIVE
+      </h1>
+      <span class="text-xs sm:text-sm tracking-[0.25em] text-[#d6c29e] block mt-1">
+        RECOMPENSAS, OFÍCIOS & TRAPAÇAS COM PONTOS DO CHAT
+      </span>
+    </div>
+
+    <p class="text-sm text-[#b8a282] max-w-2xl mx-auto px-4 mt-2">
+      Resgate itens usando seus pontos na transmissão. Clique em qualquer card abaixo para abrir as instruções, história, efeito ao vivo e o comando correspondente!
+    </p>
+
+    <!-- Barra de Filtros e Busca -->
+    <div class="flex flex-wrap items-center justify-center gap-2 mt-5 px-2">
+      <input type="text" id="searchInput" placeholder="🔍 Buscar por nome, comando ou custo..." 
+        class="bg-[#1e1710] border border-[#c89d5c]/60 rounded-md px-4 py-2 text-sm text-[#f4ecd8] placeholder-[#8c785f] focus:outline-none focus:border-[#e53935] w-full sm:w-80 shadow-inner">
+      
+      <div class="flex flex-wrap gap-1.5 justify-center">
+        <button onclick="filterCategory('all')" class="filter-btn active px-3 py-1.5 text-xs rounded border border-[#c89d5c] bg-[#c89d5c] text-[#120e0a] font-bold transition">Todos</button>
+        <button onclick="filterCategory('saloon')" class="filter-btn px-3 py-1.5 text-xs rounded border border-[#c89d5c]/40 bg-[#1e1710] text-[#d6c29e] hover:border-[#c89d5c] transition">Saloon (1-5)</button>
+        <button onclick="filterCategory('oficios')" class="filter-btn px-3 py-1.5 text-xs rounded border border-[#c89d5c]/40 bg-[#1e1710] text-[#d6c29e] hover:border-[#c89d5c] transition">Ofícios (25-50)</button>
+        <button onclick="filterCategory('combate')" class="filter-btn px-3 py-1.5 text-xs rounded border border-[#c89d5c]/40 bg-[#1e1710] text-[#d6c29e] hover:border-[#c89d5c] transition">Combate (100-200)</button>
+        <button onclick="filterCategory('crimes')" class="filter-btn px-3 py-1.5 text-xs rounded border border-[#c89d5c]/40 bg-[#1e1710] text-[#d6c29e] hover:border-[#c89d5c] transition">Crimes (250-550)</button>
+        <button onclick="filterCategory('misterios')" class="filter-btn px-3 py-1.5 text-xs rounded border border-[#c89d5c]/40 bg-[#1e1710] text-[#d6c29e] hover:border-[#c89d5c] transition">Lendas (666-700)</button>
+        <button onclick="filterCategory('supremos')" class="filter-btn px-3 py-1.5 text-xs rounded border border-[#c89d5c]/40 bg-[#1e1710] text-[#d6c29e] hover:border-[#c89d5c] transition">Supremos (1k-35k)</button>
+      </div>
+
+      <!-- Botão de Som -->
+      <button onclick="toggleAudio()" id="soundBtn" title="Ativar/Desativar Efeitos Sonoros" class="px-3 py-1.5 text-xs rounded border border-[#c89d5c]/50 bg-[#1e1710] text-[#c89d5c] hover:bg-[#c89d5c] hover:text-[#120e0a] transition flex items-center gap-1 font-bold">
+        🔊 <span id="soundLabel">Som: Ativo</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Mosaico / Grade de Resgates (Exatamente no formato do HWmalk) -->
+  <main class="w-full max-w-4xl bg-[#1c150e]/90 p-4 sm:p-7 rounded-xl border border-[#c89d5c]/40 shadow-2xl relative">
+    <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-[#120e0a] px-4 py-0.5 border border-[#c89d5c] text-[11px] text-[#c89d5c] tracking-widest uppercase font-bold rounded">
+      TABELA DE RECOMPENSAS DA GANGUE
+    </div>
+
+    <!-- Grid de Cards: 8 colunas como na imagem original -->
+    <div id="gridContainer" class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2.5 sm:gap-3.5">
+      <!-- Injetado via JavaScript dinamicamente -->
+    </div>
+
+    <!-- Rodapé da Grade -->
+    <div class="mt-6 pt-4 border-t border-[#c89d5c]/30 flex flex-wrap justify-between items-center text-xs text-[#b8a282]">
+      <span>Total de Resgates Disponíveis: <strong id="totalCount" class="text-[#f59e0b]">49 Itens</strong></span>
+      <span>💡 Clique em qualquer item para ver instruções e copiar comando</span>
+    </div>
+  </main>
+
+  <!-- MODAL DE DETALHES DO ITEM (ESTILO CARTAZ / LIVRO DE 1899) -->
+  <div id="itemModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 hidden flex items-center justify-center p-3 sm:p-5">
+    <div class="paper-texture wanted-border max-w-lg w-full rounded-lg p-6 sm:p-8 relative shadow-2xl animate-in fade-in zoom-in duration-150">
+      
+      <!-- Botão Fechar -->
+      <button onclick="closeModal()" class="absolute top-3 right-4 text-[#8c6a38] hover:text-[#9e1b1b] text-2xl font-bold transition">
+        ✕
+      </button>
+
+      <!-- Badge de Preço e Categoria -->
+      <div class="flex items-center justify-between border-b-2 border-[#8c6a38]/40 pb-3 mb-4">
+        <span id="modalCategory" class="text-xs uppercase tracking-widest font-bold text-[#8c6a38]">
+          OFÍCIO DA FRONTEIRA
+        </span>
+        <div class="flex items-center gap-1.5 bg-[#2b1d0c] text-[#f59e0b] px-3 py-1 rounded-full text-sm font-bold shadow">
+          <span>🪙</span>
+          <span id="modalCost">50</span>
+          <span class="text-xs text-[#e2d1b3]">pontos</span>
+        </div>
+      </div>
+
+      <!-- Ícone e Título -->
+      <div class="flex items-center gap-4 mb-4">
+        <div id="modalIconContainer" class="w-16 h-16 sm:w-20 sm:h-20 rounded-lg flex items-center justify-center text-4xl shadow-md border-2 border-black/20 shrink-0">
+          <!-- Ícone -->
+        </div>
+        <div>
+          <h2 id="modalTitle" class="text-xl sm:text-2xl font-western text-[#9e1b1b] leading-tight">
+            Nome do Item
+          </h2>
+          <span id="modalTierBadge" class="text-xs text-[#5c4028] font-bold block mt-0.5">
+            TIER COMUM • DISPONÍVEL NO CHAT
+          </span>
+        </div>
+      </div>
+
+      <!-- Lore / Descrição Temática de Red Dead 2 -->
+      <div class="bg-[#dcd0b9]/70 border-l-4 border-[#9e1b1b] p-3.5 rounded mb-4 text-xs sm:text-sm text-[#3b2a1a] italic leading-relaxed">
+        <span id="modalLore">"Descrição imersiva do item..."</span>
+      </div>
+
+      <!-- Efeito ao Vivo na Live -->
+      <div class="mb-5">
+        <h3 class="text-xs uppercase font-bold tracking-wider text-[#2b1d0c] mb-1 flex items-center gap-1">
+          ⚡ EFEITO NO CHAT / NA LIVE:
+        </h3>
+        <p id="modalEffect" class="text-xs sm:text-sm text-[#4a3420] font-sans leading-normal">
+          Explicação do que o bot ou o streamer fará quando o item for resgatado.
+        </p>
+      </div>
+
+      <!-- Comando de Chat e Ação -->
+      <div class="bg-[#241a10] text-[#f4ecd8] p-3.5 rounded-md flex flex-col sm:flex-row items-center justify-between gap-2.5">
+        <div class="w-full sm:w-auto text-left">
+          <span class="text-[10px] text-[#c89d5c] uppercase tracking-wider block">Comando no Chat:</span>
+          <code id="modalCommand" class="font-mono-code text-sm sm:text-base font-bold text-[#eab308]">
+            !resgatar comando
+          </code>
+        </div>
+        <button id="copyBtn" onclick="copyCommand()" class="w-full sm:w-auto bg-[#c89d5c] hover:bg-[#dfb576] active:scale-95 text-[#120e0a] font-bold px-4 py-2 text-xs rounded transition uppercase tracking-wider shrink-0 shadow flex items-center justify-center gap-1.5">
+          <span>📋</span> <span id="copyText">Copiar Comando</span>
+        </button>
+      </div>
+
+      <!-- Teste de Resgate (Simulação) -->
+      <div class="mt-4 pt-3 border-t border-[#8c6a38]/30 flex items-center justify-between text-xs text-[#6e5138]">
+        <span>Quer ver como aparece na tela?</span>
+        <button onclick="simulateRedemption()" class="text-[#9e1b1b] hover:underline font-bold">
+          🎯 Testar Simulação
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- TOAST / NOTIFICAÇÃO DE SIMULAÇÃO -->
+  <div id="toastNotification" class="fixed bottom-6 right-6 bg-[#1a1209] border-2 border-[#c89d5c] text-[#f4ecd8] p-4 rounded-lg shadow-2xl max-w-sm hidden z-50 animate-in slide-in-from-bottom-5 duration-200">
+    <div class="flex items-start gap-3">
+      <span class="text-2xl" id="toastIcon">🤠</span>
+      <div>
+        <div class="text-xs text-[#c89d5c] font-bold uppercase tracking-wider" id="toastUser">RESGATE SIMULADO:</div>
+        <p class="text-xs text-[#e2d1b3] font-sans mt-0.5 leading-snug" id="toastMessage">...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // =========================================================================
+    // LISTA COMPLETA DOS 49 ITENS INSPIRADOS NA GRADE DO HWMALK (RED DEAD 2)
+    // =========================================================================
+    const REDEEM_ITEMS = [
+      // LINHA 1 (Amarelo: 1 a 5 | Rosa: 10 a 20)
+      {
+        id: "poker_card",
+        name: "Carta de Poker",
+        cost: 1,
+        tierClass: "tier-yellow",
+        category: "saloon",
+        icon: "🃏",
+        lore: "Uma carta surrupiada do baralho do Saloon de Valentine. Será um Ás na manga ou um blefe?",
+        effect: "Tira uma carta aleatória no chat. Se tirar Ás, ganha +5% de sorte no próximo duelo!",
+        cmd: "!resgatar carta"
+      },
+      {
+        id: "saloon_insult",
+        name: "Provocação de Balcão",
+        cost: 2,
+        tierClass: "tier-yellow",
+        category: "saloon",
+        icon: "💬",
+        lore: "'Você aí tem cara de quem perde o cavalo numa aposta de palito de dente!' - insulto clássico de taverna.",
+        effect: "Manda um insulto de faroeste cómico mencionando um espectador aleatório no chat.",
+        cmd: "!resgatar insulto"
+      },
+      {
+        id: "tobacco_pouch",
+        name: "Fumo de Mascar",
+        cost: 3,
+        tierClass: "tier-yellow",
+        category: "saloon",
+        icon: "👜",
+        lore: "Tabaco fresco cultivado nas plantações de Rhodes. Mantém o foco dos pistoleiros.",
+        effect: "Dá um pequeno buff visual de vigor e restaura 1 ponto de Dead Eye para o jogador.",
+        cmd: "!resgatar fumo"
+      },
+      {
+        id: "rhodes_telegram",
+        name: "Telegrama Postal",
+        cost: 4,
+        tierClass: "tier-yellow",
+        category: "saloon",
+        icon: "✉️",
+        lore: "Mensagem enviada com urgência pelos fios telegráficos da estação ferroviária de Rhodes.",
+        effect: "O bot envia sua mensagem em destaque no chat com formatação postal oficial de 1899.",
+        cmd: "!resgatar telegrama <texto>"
+      },
+      {
+        id: "whiskey_round",
+        name: "Rodada de Uísque",
+        cost: 5,
+        tierClass: "tier-yellow",
+        category: "saloon",
+        icon: "🍺",
+        lore: "O clássico 'Coloca mais uma dose na minha conta, balconista!' que anima qualquer saloon barulhento.",
+        effect: "Paga uma rodada virtual para todo o chat! Todos os espectadores online ganham +1 de moral.",
+        cmd: "!resgatar uisque"
+      },
+      {
+        id: "bandit_mask",
+        name: "Máscara de Bandido",
+        cost: 10,
+        tierClass: "tier-pink",
+        category: "crimes",
+        icon: "🎭",
+        lore: "Lenço preto amarrado no rosto. Permite que o fora-da-lei cometa delitos sem ser identificado pela polícia.",
+        effect: "Garante imunidade contra perda de Honra no seu próximo assalto ou duelo!",
+        cmd: "!resgatar mascara"
+      },
+      {
+        id: "gold_nugget",
+        name: "Pepita de Ouro",
+        cost: 15,
+        tierClass: "tier-pink",
+        category: "oficios",
+        icon: "💎",
+        lore: "Pequeno fragmento brilhante encontrado no leito de Dakota River durante o garimpo.",
+        effect: "Guarda uma pepita no seu inventário para trocar com contrabandistas por bônus de aposta.",
+        cmd: "!resgatar pepita"
+      },
+      {
+        id: "cowboy_boots",
+        name: "Calças Empoeiradas",
+        cost: 20,
+        tierClass: "tier-pink",
+        category: "saloon",
+        icon: "👖",
+        lore: "Jeans e coldre surrados pela poeira das estradas de New Austin e cavalarias longas.",
+        effect: "Atualiza seu título cosmético de cowboy no perfil do chat para 'Vaqueiro Empoeirado'.",
+        cmd: "!resgatar calcas"
+      },
+
+      // LINHA 2 (Rosa: 25 | Laranja Ofícios: 50 | Ciano: 100)
+      {
+        id: "prospector_shovel",
+        name: "Pá de Garimpeiro",
+        cost: 25,
+        tierClass: "tier-pink",
+        category: "oficios",
+        icon: "⛏️",
+        lore: "Ferramenta de aço usada por desbravadores para escavar veios minerais nas cavernas de Mount Shann.",
+        effect: "Cava no chão e sorteia um achado aleatório (carvão, ferro velho, esmeralda ou pepita de ouro).",
+        cmd: "!resgatar cavar"
+      },
+      {
+        id: "lumber_axe",
+        name: "Machado de Lenhador",
+        cost: 50,
+        tierClass: "tier-tan",
+        category: "oficios",
+        icon: "🪓",
+        lore: "Machado afiado para cortar pinheiros nas florestas de West Elizabeth e manter o acampamento aquecido.",
+        effect: "Abastece a lenha da fogueira comunitária da live (+5 de Honra para quem resgata).",
+        cmd: "!resgatar lenha"
+      },
+      {
+        id: "hunting_carne",
+        name: "Carne de Caça Maior",
+        cost: 50,
+        tierClass: "tier-tan",
+        category: "oficios",
+        icon: "🥩",
+        lore: "Carne suculenta de Cervo ou Alce assada nas brasas com tomilho e orégano selvagem.",
+        effect: "Restaura os atributos do jogador e confere núcleo dourado de estamina na próxima hora.",
+        cmd: "!resgatar carne"
+      },
+      {
+        id: "wild_ginseng",
+        name: "Ginseng Americano",
+        cost: 50,
+        tierClass: "tier-tan",
+        category: "oficios",
+        icon: "🌿",
+        lore: "Raiz medicinal rara colhida nos bosques úmidos. Ingrediente-chave dos tônicos milagrosos.",
+        effect: "Colhe ervas medicinais e produz um Tônico Potente no seu inventário.",
+        cmd: "!resgatar ervas"
+      },
+      {
+        id: "fishing_rod",
+        name: "Vara de Pesca",
+        cost: 50,
+        tierClass: "tier-tan",
+        category: "oficios",
+        icon: "🎣",
+        lore: "Linha de pesca resistente para fisgar trutas e salmões lendários nas águas geladas de O'Creagh's Run.",
+        effect: "Pesca nas águas do chat: pode pescar peixes comuns (trocáveis por pontos) ou o raro Salmão Lendário!",
+        cmd: "!resgatar pescar"
+      },
+      {
+        id: "camp_defense",
+        name: "Barricada do Bando",
+        cost: 50,
+        tierClass: "tier-tan",
+        category: "oficios",
+        icon: "🛡️",
+        lore: "Troncos e sacos de areia reforçando o perímetro do acampamento de Horseshoe Overlook.",
+        effect: "Protege o acampamento da live contra a próxima emboscada dos O'Driscolls.",
+        cmd: "!resgatar barricada"
+      },
+      {
+        id: "lucky_coin",
+        name: "Dólar de Prata da Sorte",
+        cost: 50,
+        tierClass: "tier-tan",
+        category: "saloon",
+        icon: "🪙",
+        lore: "Moeda comemorativa de 1878 que carrega a marca de um tiro que ricocheteou no bolso do peito.",
+        effect: "Joga cara ou coroa contra o bot valendo o dobro de pontos ou um brinde da sorte!",
+        cmd: "!resgatar moeda"
+      },
+      {
+        id: "duel_showdown",
+        name: "Duelo de Honra",
+        cost: 100,
+        tierClass: "tier-cyan",
+        category: "combate",
+        icon: "⚔️",
+        lore: "Confronto mortal ao soar das doze badaladas na rua principal da cidade. Só um sai caminhando.",
+        effect: "Inicia um duelo formal de pistoleiros contra um rival do chat valendo o pote!",
+        cmd: "!resgatar duelo @usuario"
+      },
+
+      // LINHA 3 (Ciano: 100 | Roxo: 125 a 200)
+      {
+        id: "iron_helmet",
+        name: "Capacete de Minerador",
+        cost: 100,
+        tierClass: "tier-cyan",
+        category: "combate",
+        icon: "⛑️",
+        lore: "Elmo resistente de ferro fundido com lâmpada a querosene para explorar minas abandonadas.",
+        effect: "Protege contra o primeiro tiro na cabeça em duelos de revólver!",
+        cmd: "!resgatar capacete"
+      },
+      {
+        id: "arabian_horse",
+        name: "Puro-Sangue Árabe",
+        cost: 100,
+        tierClass: "tier-cyan",
+        category: "combate",
+        icon: "🐎",
+        lore: "O cavalo branco mais rápido das montanhas do Lago Isabella. Velocidade e elegância inigualáveis.",
+        effect: "Aumenta drasticamente a chance de sucesso da gangue ao escapar no Assalto ao Trem!",
+        cmd: "!resgatar cavalo"
+      },
+      {
+        id: "brawler_strength",
+        name: "Punho de Aço",
+        cost: 100,
+        tierClass: "tier-cyan",
+        category: "combate",
+        icon: "💪",
+        lore: "Técnica brutal de luta corporal aprendida em brigas de taverna contra gigantes de Saint Denis.",
+        effect: "Vence automaticamente qualquer briga de bar no saloon sem precisar de armas.",
+        cmd: "!resgatar forca"
+      },
+      {
+        id: "turtle_shell",
+        name: "Escudo de Couro Duro",
+        cost: 100,
+        tierClass: "tier-cyan",
+        category: "combate",
+        icon: "🐢",
+        lore: "Colete reforçado com camadas de couro de crocodilo e placas de metal escondidas por baixo do colete.",
+        effect: "Reduz o dano e a perda de pontos pela metade caso seja assaltado por outro espectador.",
+        cmd: "!resgatar colete"
+      },
+      {
+        id: "snake_oil",
+        name: "Óleo de Cobra Potente",
+        cost: 125,
+        tierClass: "tier-purple",
+        category: "combate",
+        icon: "🧪",
+        lore: "Destilado milagroso patenteado pelo doutor charlatão de Rhodes. Restaura o Dead Eye imediatamente.",
+        effect: "Enche 100% da sua barra de Dead Eye para acertar o alvo no próximo tiro.",
+        cmd: "!resgatar oleo"
+      },
+      {
+        id: "mary_letter",
+        name: "Carta de Mary Linton",
+        cost: 150,
+        tierClass: "tier-purple",
+        category: "saloon",
+        icon: "💌",
+        lore: "'Oh, Arthur... Há uma parte boa em você que nunca morrerá.' - a carta que tocou a alma de Arthur Morgan.",
+        effect: "Restaura imediatamente +20 de Honra perdida e envia mensagem emocional de redenção no chat.",
+        cmd: "!resgatar cartaamor"
+      },
+      {
+        id: "legendary_heart",
+        name: "Coração de Urso Pardo",
+        cost: 175,
+        tierClass: "tier-purple",
+        category: "combate",
+        icon: "🫀",
+        lore: "Troféu arrancado do temível Urso Pardo Lendário de Grizzlies East. Símbolo de pura ferocidade.",
+        effect: "Dobra a sua aposta no próximo evento de Caçador de Recompensas sem custo extra!",
+        cmd: "!resgatar coracao"
+      },
+      {
+        id: "schofield_revolver",
+        name: "Revólver Schofield",
+        cost: 200,
+        tierClass: "tier-purple",
+        category: "combate",
+        icon: "🔫",
+        lore: "Cano longo de precisão, empunhadura de madrepérola e gravação de águia no tambor giratório.",
+        effect: "Equipa a arma lendária que concede +20% de precisão definitiva em todos os duelos.",
+        cmd: "!resgatar schofield"
+      },
+
+      // LINHA 4 (Branco: 250 a 450 | Preto: 475 a 525)
+      {
+        id: "alligator_boots",
+        name: "Botas de Crocodilo",
+        cost: 250,
+        tierClass: "tier-white",
+        category: "crimes",
+        icon: "👢",
+        lore: "Confeccionadas sob medida pelo Armadilheiro em Saint Denis com pele de aligátor lendário.",
+        effect: "Permite explorar os pântanos de Lemoyne sem risco de emboscadas dos Night Folk.",
+        cmd: "!resgatar botas"
+      },
+      {
+        id: "steam_boat",
+        name: "Barco a Vapor Fluvial",
+        cost: 300,
+        tierClass: "tier-white",
+        category: "crimes",
+        icon: "🚢",
+        lore: "Embarcação elegante que trafega pelo Rio Lannahechee, palco de jogos de cartas de alta roda e contrabando.",
+        effect: "Inicia uma viagem de contrabando pelo rio com chance de dobrar seus pontos em 3 minutos!",
+        cmd: "!resgatar barco"
+      },
+      {
+        id: "brass_spyglass",
+        name: "Luneta de Latão",
+        cost: 350,
+        tierClass: "tier-white",
+        category: "crimes",
+        icon: "🔭",
+        lore: "Óptica militar de longo alcance para avistar carruagens e trens a quilômetros de distância.",
+        effect: "Revela qual será o próximo evento de assalto ou caçada antes de todo mundo no chat!",
+        cmd: "!resgatar luneta"
+      },
+      {
+        id: "pickpocket_skill",
+        name: "Bater Carteira",
+        cost: 400,
+        tierClass: "tier-white",
+        category: "crimes",
+        icon: "🥷",
+        lore: "A arte sutil de esbarrar na vítima em Saint Denis e surrupiar o relógio de bolso de ouro.",
+        effect: "Tenta roubar até 100 pontos de um alvo no chat! Se falhar, é pego pela polícia e multado.",
+        cmd: "!resgatar roubar @usuario"
+      },
+      {
+        id: "lockpick_set",
+        name: "Gazua de Arrombador",
+        cost: 450,
+        tierClass: "tier-white",
+        category: "crimes",
+        icon: "🗝️",
+        lore: "Chaves michas de aço temperado capazes de abrir até as travas mais difíceis das diligências.",
+        effect: "Abre o cofre secreto da live e distribui uma chuva de moedas no chat!",
+        cmd: "!resgatar gazua"
+      },
+      {
+        id: "noose_hang",
+        name: "A Corda da Forca",
+        cost: 475,
+        tierClass: "tier-black",
+        category: "crimes",
+        icon: "⏳",
+        lore: "O destino final dos foras-da-lei na praça pública de Blackwater. O tempo corre implacável.",
+        effect: "Coloca um espectador no 'xadrez' do chat, impedindo-o de usar comandos de aposta por 2 minutos.",
+        cmd: "!resgatar forca @usuario"
+      },
+      {
+        id: "wanted_bounty",
+        name: "Cartaz de Procurado",
+        cost: 500,
+        tierClass: "tier-black",
+        category: "crimes",
+        icon: "💀",
+        lore: "WANTED: ALIVE OR DEAD! O carimbo oficial do xerife colocando a cabeça de alguém a prêmio.",
+        effect: "Coloca uma recompensa sobre a cabeça de um usuário! Quem duelar e vencê-lo ganha 500 pontos!",
+        cmd: "!resgatar cartaz @usuario"
+      },
+      {
+        id: "dynamite_stick",
+        name: "Banana de Dinamite",
+        cost: 525,
+        tierClass: "tier-black",
+        category: "crimes",
+        icon: "💣",
+        lore: "Fabricada em Annesburg. Um pavio curto, uma faísca e a porta de metal reforçado voa pelos ares.",
+        effect: "Garante 100% de sucesso na explosão do cofre no próximo Assalto ao Trem!",
+        cmd: "!resgatar dinamite"
+      },
+
+      // LINHA 5 (Preto: 550 | Vermelho Proibido: 666 | Rosa Choque: 700)
+      {
+        id: "pinkerton_spy",
+        name: "Detetive Pinkerton",
+        cost: 550,
+        tierClass: "tier-black",
+        category: "crimes",
+        icon: "🕵️",
+        lore: "Andrew Milton e Edgar Ross mandam suas lembranças. Homens impiedosos pagos por magnatas.",
+        effect: "Chama a agência Pinkerton para sabotar o plano de assalto de uma gangue rival!",
+        cmd: "!resgatar pinkerton"
+      },
+      {
+        id: "vampire_stdenis",
+        name: "O Vampiro de Saint Denis",
+        cost: 666,
+        tierClass: "tier-red",
+        category: "misterios",
+        icon: "🧛",
+        lore: "A criatura pálida que se esconde nos becos sombrios da catedral entoando cânticos sangrentos.",
+        effect: "Suga 200 pontos de uma vítima aleatória no chat e transfere metade para o seu coldre no escuro!",
+        cmd: "!resgatar vampiro"
+      },
+      {
+        id: "pagan_ritual",
+        name: "Ritual Pagão dos Bosques",
+        cost: 666,
+        tierClass: "tier-red",
+        category: "misterios",
+        icon: "🥩",
+        lore: "Uma carcaça com chifres e símbolos arcanos desenhados com sangue na terra de West Elizabeth.",
+        effect: "Invoca uma névoa mágica no chat: duelos durante os próximos 5 minutos terão resultados imprevisíveis!",
+        cmd: "!resgatar ritual"
+      },
+      {
+        id: "ghost_rider",
+        name: "Cavaleiro Fantasma",
+        cost: 666,
+        tierClass: "tier-red",
+        category: "misterios",
+        icon: "👻",
+        lore: "A aparição espectral que cavalga sem cabeça pelos desfiladeiros de Tumbleweed sob a lua cheia.",
+        effect: "Assusta o chat com som e efeito macabro, zerando o cooldown de todos os seus outros resgates!",
+        cmd: "!resgatar cavaleiro"
+      },
+      {
+        id: "dark_contract",
+        name: "Pacto de Sangue",
+        cost: 666,
+        tierClass: "tier-red",
+        category: "misterios",
+        icon: "📜",
+        lore: "Um pacto sinistro assinado à meia-noite na encruzilhada de Lemoyne com o homem de cartola.",
+        effect: "Sacrifica sua Honra (-50) em troca de um multiplicador permanente de +25% de lucro em crimes!",
+        cmd: "!resgatar pacto"
+      },
+      {
+        id: "thunder_storm",
+        name: "Tempestade com Raios",
+        cost: 666,
+        tierClass: "tier-red",
+        category: "misterios",
+        icon: "⚡",
+        lore: "Céus escurecem e raios colossais atingem o solo do Velho Oeste com trovões estrondosos.",
+        effect: "Acerta um raio aleatório no chat: o atingido é mandado temporariamente pro purgatório!",
+        cmd: "!resgatar raio"
+      },
+      {
+        id: "arthur_journal",
+        name: "Diário de Arthur Morgan",
+        cost: 700,
+        tierClass: "tier-rose",
+        category: "misterios",
+        icon: "📖",
+        lore: "Desenhos detalhados a lápis e memórias profundas de um homem que buscava o sentido da lealdade.",
+        effect: "Publica uma reflexão poética clássica do diário de Arthur no chat e concede insígnia de Lealdade.",
+        cmd: "!resgatar diario"
+      },
+      {
+        id: "saloon_harp",
+        name: "Harpa do Teatro de Saint Denis",
+        cost: 700,
+        tierClass: "tier-rose",
+        category: "misterios",
+        icon: "🪕",
+        lore: "Melodia sublime executada no palco do teatro de vaudeville para a alta sociedade e barões de petróleo.",
+        effect: "Toca uma vinheta musical ao vivo na transmissão (efeito sonoro de banjo/harpa clássica).",
+        cmd: "!resgatar harpa"
+      },
+
+      // LINHA 6 (Rosa: 700 | Verde/Dourado Grandes Golpes: 1.000 a 10.000)
+      {
+        id: "camp_coffee",
+        name: "Café Quente da Fogueira",
+        cost: 700,
+        tierClass: "tier-rose",
+        category: "misterios",
+        icon: "☕",
+        lore: "Café preto fervido na cafeteira de metal ao amanhecer em Horseshoe Overlook. Dá energia pura.",
+        effect: "Concede velocidade dobrada em todas as suas ações e resgates durante a próxima meia hora!",
+        cmd: "!resgatar cafe"
+      },
+      {
+        id: "treasure_map",
+        name: "Mapa do Tesouro de Jack Hall",
+        cost: 700,
+        tierClass: "tier-rose",
+        category: "misterios",
+        icon: "🗺️",
+        lore: "Papiro gasto com marcos geográficos que levam a barras de ouro escondidas em Caliban's Seat.",
+        effect: "Inicia uma caça ao tesouro interativa no chat onde os primeiros a decifrar a pista dividem ouro!",
+        cmd: "!resgatar mapa"
+      },
+      {
+        id: "bank_valentine",
+        name: "Assalto ao Banco de Valentine",
+        cost: 1000,
+        tierClass: "tier-lime",
+        category: "supremos",
+        icon: "🏦",
+        lore: "'Nós vamos entrar, pegar o dinheiro dos cofres e sair como fantasmas!' - O plano mestre da gangue.",
+        effect: "Inicia um Megagolpe Comunitário no Banco com a maior taxa de retorno da live (+150% de lucro)!",
+        cmd: "!resgatar banco"
+      },
+      {
+        id: "white_bison",
+        name: "Bisão Branco Lendário",
+        cost: 1200,
+        tierClass: "tier-lime",
+        category: "supremos",
+        icon: "❄️",
+        lore: "O mítico espírito das neves do Lago Isabella. Sua pele reluz como cristal sob a nevasca.",
+        effect: "Conquista o manto do Bisão Lendário: imunidade a frio e título lendário permanente na live!",
+        cmd: "!resgatar bisao"
+      },
+      {
+        id: "train_vault",
+        name: "Cofre da Pacific Union",
+        cost: 1400,
+        tierClass: "tier-lime",
+        category: "supremos",
+        icon: "🎁",
+        lore: "O vagão blindado mais protegido do país, repleto de títulos da dívida pública e barras de ouro.",
+        effect: "Gera uma caixa de tesouro lendária que sorteia prêmios para 5 espectadores aleatórios no chat!",
+        cmd: "!resgatar cofre"
+      },
+      {
+        id: "liars_dice",
+        name: "Dados do Mentiroso",
+        cost: 1800,
+        tierClass: "tier-lime",
+        category: "supremos",
+        icon: "🎲",
+        lore: "O jogo de blefe e astúcia onde cada dado escondido debaixo do copo vale fortunas ou a ruína.",
+        effect: "Desafia o próprio streamer para uma rodada emocionante de Dados do Mentiroso valendo bolada!",
+        cmd: "!resgatar dados"
+      },
+      {
+        id: "revolver_legend",
+        name: "Pistoleiro Lendário",
+        cost: 2000,
+        tierClass: "tier-lime",
+        category: "supremos",
+        icon: "🔥",
+        lore: "Seu nome agora é sussurrado nos saloons ao lado de Billy Midnight, Jim 'Boy' Calloway e Arthur Morgan.",
+        effect: "Seu nick ganha destaque com chamas e coroa dourada no chat por 7 dias!",
+        cmd: "!resgatar lenda"
+      },
+      {
+        id: "sheriff_badge",
+        name: "Estrela de Xerife Honorário",
+        cost: 10000,
+        tierClass: "tier-gold",
+        category: "supremos",
+        icon: "⭐",
+        lore: "A estrela de prata da lei concedida apenas aos cidadãos mais respeitados de toda a região da fronteira.",
+        effect: "Concede poder de moderação especial no chat durante 1 live inteira e imunidade contra assaltos!",
+        cmd: "!resgatar xerife"
+      },
+
+      // ITEM SUPREMO CENTRAL (Linha 7 - Custo 35.000)
+      {
+        id: "red_dead_redemption",
+        name: "A Carta da Redenção",
+        cost: 35000,
+        tierClass: "tier-gold",
+        category: "supremos",
+        icon: "👑",
+        lore: "'May I stand unshaken... amidst a crashing world.' O resgate supremo que consagra a história eterna de um herói do Oeste.",
+        effect: "TOCA O TEMA CLÁSSICO DE RED DEAD AO VIVO NA STREAM! Concede status VIP vitalício, zera todas as penalidades e consagra o espectador no Hall da Fama da live!",
+        cmd: "!resgatar redencao"
+      }
+    ];
+
+    // =========================================================================
+    // RENDERIZAÇÃO DA GRADE
+    // =========================================================================
+    let currentFilter = 'all';
+    let audioEnabled = true;
+    let selectedItem = null;
+
+    function renderGrid() {
+      const container = document.getElementById('gridContainer');
+      const searchTerm = document.getElementById('searchInput').value.toLowerCase().trim();
+      container.innerHTML = '';
+
+      const filtered = REDEEM_ITEMS.filter(item => {
+        const matchesCat = (currentFilter === 'all') || (item.category === currentFilter);
+        const matchesSearch = item.name.toLowerCase().includes(searchTerm) ||
+                              item.cost.toString().includes(searchTerm) ||
+                              item.cmd.toLowerCase().includes(searchTerm) ||
+                              item.effect.toLowerCase().includes(searchTerm);
+        return matchesCat && matchesSearch;
+      });
+
+      document.getElementById('totalCount').innerText = `${filtered.length} Itens`;
+
+      filtered.forEach(item => {
+        const card = document.createElement('button');
+        card.type = 'button';
+        card.className = `card-slot ${item.tierClass} rounded-lg border-2 p-1.5 flex flex-col items-center justify-between cursor-pointer text-center relative overflow-hidden group`;
+        card.onclick = () => openModal(item);
+
+        // Formatação do número de pontos (1.000, 35.000, etc)
+        const formattedCost = item.cost >= 1000 ? (item.cost / 1000).toLocaleString('pt-BR') + 'k' : item.cost;
+
+        card.innerHTML = `
+          <div class="w-full flex justify-center items-center my-auto">
+            <span class="text-2xl sm:text-3xl drop-shadow-md select-none transform group-hover:scale-110 transition duration-150">
+              ${item.icon}
+            </span>
+          </div>
+          <div class="coin-badge w-full py-0.5 px-1 rounded flex items-center justify-center gap-0.5 text-[10px] sm:text-[11px] font-bold text-amber-300">
+            <span class="text-[9px]">🪙</span>
+            <span>${item.cost.toLocaleString('pt-BR')}</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+
+      // Se for o item supremo de 35.000, centralizar se estiver visível sozinho
+      if (filtered.length === 1 && filtered[0].cost === 35000) {
+        container.className = "flex justify-center py-4";
+      } else {
+        container.className = "grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 gap-2.5 sm:gap-3.5";
+      }
+    }
+
+    // =========================================================================
+    // FILTROS E BUSCA
+    // =========================================================================
+    function filterCategory(cat) {
+      currentFilter = cat;
+      playWebAudio('click');
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.remove('active', 'bg-[#c89d5c]', 'text-[#120e0a]');
+        btn.classList.add('bg-[#1e1710]', 'text-[#d6c29e]');
+      });
+      event.target.classList.add('active', 'bg-[#c89d5c]', 'text-[#120e0a]');
+      event.target.classList.remove('bg-[#1e1710]', 'text-[#d6c29e]');
+      renderGrid();
+    }
+
+    document.getElementById('searchInput').addEventListener('input', () => {
+      renderGrid();
+    });
+
+    // =========================================================================
+    // MODAL DE DETALHES
+    // =========================================================================
+    function openModal(item) {
+      selectedItem = item;
+      playWebAudio('paper');
+
+      document.getElementById('modalTitle').innerText = item.name;
+      document.getElementById('modalCost').innerText = item.cost.toLocaleString('pt-BR');
+      document.getElementById('modalLore').innerText = `"${item.lore}"`;
+      document.getElementById('modalEffect').innerText = item.effect;
+      document.getElementById('modalCommand').innerText = item.cmd;
+      document.getElementById('modalCategory').innerText = `CATEGORIA: ${item.category.toUpperCase()}`;
+      
+      const iconContainer = document.getElementById('modalIconContainer');
+      iconContainer.className = `w-16 h-16 sm:w-20 sm:h-20 rounded-lg flex items-center justify-center text-4xl shadow-md border-2 border-black/20 shrink-0 ${item.tierClass}`;
+      iconContainer.innerHTML = item.icon;
+
+      document.getElementById('copyText').innerText = "Copiar Comando";
+      document.getElementById('itemModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+      playWebAudio('click');
+      document.getElementById('itemModal').classList.add('hidden');
+      selectedItem = null;
+    }
+
+    // Fecha ao clicar fora da caixa
+    document.getElementById('itemModal').addEventListener('click', (e) => {
+      if (e.target.id === 'itemModal') closeModal();
+    });
+
+    // Fecha com tecla ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeModal();
+    });
+
+    function copyCommand() {
+      if (!selectedItem) return;
+      playWebAudio('coin');
+      navigator.clipboard.writeText(selectedItem.cmd).then(() => {
+        document.getElementById('copyText').innerText = "Copiado com Sucesso! ✓";
+        setTimeout(() => {
+          document.getElementById('copyText').innerText = "Copiar Comando";
+        }, 2200);
+      });
+    }
+
+    // =========================================================================
+    // SIMULAÇÃO DO RESGATE NO CHAT
+    // =========================================================================
+    function simulateRedemption() {
+      if (!selectedItem) return;
+      playWebAudio('shot');
+      closeModal();
+
+      const toast = document.getElementById('toastNotification');
+      document.getElementById('toastIcon').innerText = selectedItem.icon;
+      document.getElementById('toastUser').innerText = `RESGATE AO VIVO: [${selectedItem.name.toUpperCase()}]`;
+      document.getElementById('toastMessage').innerText = `@Espectador resgatou ${selectedItem.name} por ${selectedItem.cost} pontos! Efeito ativado: ${selectedItem.effect}`;
+
+      toast.classList.remove('hidden');
+      setTimeout(() => {
+        toast.classList.add('hidden');
+      }, 5000);
+    }
+
+    // =========================================================================
+    // SÍNTESE DE ÁUDIO WEB AUDIO API (EFEITOS SONOROS DE FAROESTE)
+    // =========================================================================
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function playWebAudio(type) {
+      if (!audioEnabled) return;
+      try {
+        if (!audioCtx) audioCtx = new AudioCtx();
+        if (audioCtx.state === 'suspended') audioCtx.resume();
+
+        const now = audioCtx.currentTime;
+
+        if (type === 'coin') {
+          // Sino/Moeda dourada metálica
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(987.77, now); // B5
+          osc.frequency.exponentialRampToValueAtTime(1318.51, now + 0.08); // E6
+          gain.gain.setValueAtTime(0.2, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.5);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.5);
+        } else if (type === 'click') {
+          // Clique seco de revólver
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(160, now);
+          gain.gain.setValueAtTime(0.25, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.04);
+        } else if (type === 'paper') {
+          // Farfalhar de papiro
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(320, now);
+          osc.frequency.exponentialRampToValueAtTime(120, now + 0.09);
+          gain.gain.setValueAtTime(0.08, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.12);
+        } else if (type === 'shot') {
+          // Tiro de revólver/estampido
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'square';
+          osc.frequency.setValueAtTime(120, now);
+          osc.frequency.exponentialRampToValueAtTime(30, now + 0.25);
+          gain.gain.setValueAtTime(0.4, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+          osc.start(now);
+          osc.stop(now + 0.3);
+        }
+      } catch (err) {}
+    }
+
+    function toggleAudio() {
+      audioEnabled = !audioEnabled;
+      const label = document.getElementById('soundLabel');
+      const btn = document.getElementById('soundBtn');
+      if (audioEnabled) {
+        label.innerText = "Som: Ativo";
+        btn.classList.add('text-[#c89d5c]');
+        btn.classList.remove('text-stone-500');
+        playWebAudio('coin');
+      } else {
+        label.innerText = "Som: Mudo";
+        btn.classList.remove('text-[#c89d5c]');
+        btn.classList.add('text-stone-500');
+      }
+    }
+
+    // Inicialização
+    renderGrid();
+  </script>
+</body>
+</html>
